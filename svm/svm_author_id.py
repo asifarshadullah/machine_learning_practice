@@ -20,7 +20,7 @@ from email_preprocess import preprocess
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
-clf = svm.SVC(kernel='linear', C=1.0, gamma='scale')
+clf = svm.SVC(kernel='rbf', C=1.0, gamma='scale')
 features_train = features_train[:len(features_train)//100]
 labels_train = labels_train[:len(labels_train)//100]
 t0 = time()
