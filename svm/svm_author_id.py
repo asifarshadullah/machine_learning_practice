@@ -20,9 +20,9 @@ from email_preprocess import preprocess
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
-clf = svm.SVC(kernel='rbf', C=100.0, gamma='scale')
-features_train = features_train[:len(features_train)//100]
-labels_train = labels_train[:len(labels_train)//100]
+clf = svm.SVC(kernel='rbf', C=10000.0, gamma='scale')
+#features_train = features_train[:len(features_train)//100]
+#labels_train = labels_train[:len(labels_train)//100]
 t0 = time()
 clf.fit(features_train,labels_train)
 print("training time -",round(time()-t0,3),"s")
@@ -32,7 +32,8 @@ print("Prediction time -",round(time()-t0,3),"s")
 accuracy = clf.score(features_test, labels_test)
 
 print(accuracy)
-
+print(pred[10]," ",pred[26]," ",pred[50],"\n")
+print(sum(pred))
 
 #########################################################
 ### your code goes here ###
