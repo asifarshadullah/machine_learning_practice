@@ -18,7 +18,10 @@
 import pickle
 import pandas
 
-enron_data = pickle.load(open("../final_project/final_project_dataset_unix.pkl", "rb"))
-#enron_data = pandas.read_pickle("../final_project/final_project_dataset_unix.pkl")
+#enron_data = pickle.load(open("../final_project/final_project_dataset_unix.pkl", "rb"))
+enron_data = pandas.read_pickle("../final_project/final_project_dataset_unix.pkl")
+cnt = 0
+for ob in enron_data:
+    cnt += 1
 
-#print(enron_data)
+print(cnt)
