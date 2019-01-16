@@ -22,6 +22,9 @@ import pandas
 enron_data = pandas.read_pickle("../final_project/final_project_dataset_unix.pkl")
 cnt = 0
 for ob in enron_data:
-    cnt += 1
+    if enron_data[ob]["poi"]==1:
+        cnt += 1
 
 print(cnt)
+print(len(enron_data))
+print(len(enron_data['METTS MARK']))
