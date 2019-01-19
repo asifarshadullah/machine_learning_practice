@@ -33,7 +33,7 @@ plt.show()
 
 ### your code here!  name your classifier object clf if you want the
 ### visualization code (prettyPicture) to show you the decision boundary
-
+"""
 clf = neighbors.KNeighborsClassifier()
 t0 = time()
 clf.fit(features_train, labels_train)
@@ -45,9 +45,9 @@ print("K-nearest Prediction time :",round(time() - t1,3),"s")
 accuracy = clf.score(features_test, labels_test)
 
 print("K nearest neighbors accuracy",accuracy)
+"""
 
-
-
+"""
 clf = ensemble.AdaBoostClassifier()
 t0 = time()
 clf.fit(features_train, labels_train)
@@ -73,6 +73,8 @@ print("Random Forest Prediction time :",round(time() - t1,3),"s")
 accuracy = clf.score(features_test, labels_test)
 
 print("Random Forest Accuracy",accuracy)
+"""
+
 
 try:
     prettyPicture(clf, features_test, labels_test)
