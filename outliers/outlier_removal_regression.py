@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pickle
 
 from outlier_cleaner import outlierCleaner
-from sklearn import linear_model
+from sklearn.linear_model import LinearRegression
 
 ### load up some practice data with outliers in it
 ages = pickle.load( open("practice_outliers_ages_unix.pkl", "rb") )
@@ -25,8 +25,12 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
-
-
+reg = LinearRegression().fit(ages_train, net_worths_train)
+reg.predict(ages_test)
+accuracy = reg.score(ages_test, net_worths_test)
+print("Slope -",reg.coef_)
+print("Intercept -",reg.intercept_)
+print("Accuracy -",accuracy)
 
 
 
