@@ -54,16 +54,21 @@ feature_1 = "salary"
 feature_2 = "exercised_stock_options"
 feature_3 = "total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2, feature_3]
+features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+maxVal = numpy.amax(data, axis=0)
+minVal = 10000000;
+for ii in data:
+    if ii[1]<minVal and (ii[1] != 0):
+        minVal = ii[1]
 
-
+print('Max - ',maxVal,' Min - ',minVal)
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1,f2, f3 in finance_features:
+for f1, f2 in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
 
