@@ -12,6 +12,7 @@ import numpy
 import matplotlib.pyplot as plt
 
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
 
 import sys
 sys.path.append("../tools/")
@@ -28,7 +29,7 @@ def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature
     colors = ["b", "c", "k", "m", "g"]
     for ii, pp in enumerate(pred):
         plt.scatter(features[ii][0], features[ii][1], color = colors[pred[ii]])
-        print('ii - ',ii,' pp - ',pp)
+        #print('ii - ',ii,' pp - ',pp)
 
     ### if you like, place red stars over points that are POIs (just for funsies)
     if mark_poi:
@@ -47,6 +48,28 @@ data_dict = pickle.load( open("../final_project/final_project_dataset_unix.pkl",
 ### there's an outlier--remove it!
 data_dict.pop("TOTAL", 0)
 
+salary = []
+ex_stock = []
+
+for users in data_dict:
+    sal = data_dict[users]['salary']
+    stk = data_dict[users]['exercised_stock_options']
+    if sal != 'NaN':
+        salary.append(sal)
+    if stk != 'NaN':
+        ex_stock.append(stk)
+
+salary = numpy.array([[e] for e in salary])
+ex_stock = numpy.array([[e] for e in ex_stock])
+
+scalerSalary = MinMaxScaler()
+scalerStock = MinMaxScaler()
+rescaledSalary = scalerSalary.fit_transform(salary)
+rescaledStock = scalerStock.fit_transform(ex_stock)
+
+print(salary)
+print(scalerSalary.transform([[200000]]))
+print(scalerStock.transform([[1000000]]))
 
 ### the input features we want to use
 ### can be any key in the person-level dictionary (salary, director_fees, etc.)
@@ -57,13 +80,7 @@ poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
-maxVal = numpy.amax(data, axis=0)
-minVal = 10000000;
-for ii in data:
-    if ii[1]<minVal and (ii[1] != 0):
-        minVal = ii[1]
 
-print('Max - ',maxVal,' Min - ',minVal)
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to
 ### for f1, f2, _ in finance_features:
@@ -76,7 +93,7 @@ plt.show()
 ### for the data and store them to a list called pred
 kmeans = KMeans(n_clusters=2, random_state=0)
 pred = kmeans.fit_predict(data)
-print(pred)
+#print(pred)
 
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
